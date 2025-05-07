@@ -37,38 +37,8 @@ const ReusableTable = ({
   };
 
   const renderStatus = (status) => {
-    const statusStyles = {
-      Approved: {
-        dot: "bg-green-500",
-        bg: "bg-green-100",
-        text: "text-green-800"
-      },
-      Pending: {
-        dot: "bg-yellow-500",
-        bg: "bg-yellow-100",
-        text: "text-yellow-800"
-      },
-      Rejected: {
-        dot: "bg-red-500",
-        bg: "bg-red-100",
-        text: "text-red-800"
-      },
-      Forwarded: {
-        dot: "bg-blue-500",
-        bg: "bg-blue-100",
-        text: "text-blue-800"
-      },
-    };
-
-    const style = statusStyles[status] || {
-      dot: "bg-gray-500",
-      bg: "bg-gray-100",
-      text: "text-gray-800"
-    };
-
     return (
-      <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs ${style.bg} ${style.text}`}>
-        <span className={`w-2 h-2 rounded-full ${style.dot}`} />
+      <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs">
         {status}
       </span>
     );
