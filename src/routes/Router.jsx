@@ -1,6 +1,9 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { MainLayout } from "../layouts/MainLayout";
-import Dashboard from "../pages/Dashboard";
+import Dashboard from "../pages/Dashboard/Dashboard";
+import PurchaseOrderList from "../pages/PurchaseOrder/PurchaseOrderList";
+import Cancellation from "../pages/FreezerManagement/Cancellation";
+import ModifyAndForward from "../pages/PurchaseOrder/ModifyAndForword";
 
 
 
@@ -16,6 +19,26 @@ export const router = createBrowserRouter([
               {
                 path: "/dashboard",
                 element: <Dashboard/>,
+              },
+              {
+                path: "/purchase-orders",
+                element: (
+        
+                    <PurchaseOrderList />
+                 
+                ),
+              },
+              {
+                path: "/cancellation",
+                element: (
+        
+                    <Cancellation/>
+                 
+                ),
+              },
+              {
+                path: "/modify-forward",
+                element: <ModifyAndForward/>,
               },
         ]
     }

@@ -7,7 +7,6 @@ import {
 } from "@mui/icons-material";
 import sequel from "../../assets/images/sequel.png";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
-import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBulletedOutlined";
 import InventoryOutlinedIcon from "@mui/icons-material/InventoryOutlined";
 import { Link, useLocation } from "react-router-dom";
 import { Navbar } from "../navbar/Navbar";
@@ -15,6 +14,15 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import GrassIcon from '@mui/icons-material/Grass';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import PersonIcon from '@mui/icons-material/Person';
+import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
+import StoreOutlinedIcon from '@mui/icons-material/StoreOutlined';
+import KitchenOutlinedIcon from '@mui/icons-material/KitchenOutlined';
+import DoNotDisturbOutlinedIcon from '@mui/icons-material/DoNotDisturbOutlined';
+import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
+import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
+import AcUnitOutlinedIcon from '@mui/icons-material/AcUnitOutlined';
+
 export const Sidebar = () => {
   const location = useLocation();
   const [role, setRole] = useState();
@@ -52,130 +60,142 @@ export const Sidebar = () => {
       icon: <DashboardIcon sx={{ fontSize: 17.5 }} />,
       title: "Dashboard",
       roles: ["admin"],
-      submenus: [
-        {
-          key: "Overview",
-          icon: <FormatListBulletedOutlinedIcon sx={{ fontSize: 17.5 }} />,
-          title: "Overview",
-          path: "/",
-        },
-      ],
+    //   submenus: [
+    //     {
+    //       key: "Overview",
+    //       icon: <FormatListBulletedOutlinedIcon sx={{ fontSize: 17.5 }} />,
+    //       title: "Overview",
+    //       path: "/",
+    //     },
+    //   ],
     },
     {
-      key: "EmployeeManagement",
+      key: "Orders",
       icon: <InventoryOutlinedIcon sx={{ fontSize: 17.5 }} />,
-      title: "Employee Management",
+      title: "Orders",
       roles: ["admin"],
-      submenus: [
-        {
-          key: "Employee Listing",
-          icon: <PersonIcon sx={{ fontSize: 17.5 }} />,
-          title: "Employee Listing",
-          path: "/employee-list",
-        },
-        {
-          key: "Attendence",
-          icon: <PersonIcon sx={{ fontSize: 17.5 }} />,
-          title: "Attendence",
-          path: "/attendence",
-        },
-      ],
-    },
-    {
-      key: "Distributor Management",
-      icon: <InventoryOutlinedIcon sx={{ fontSize: 17.5 }} />,
-      title: "Distributor Management",
-      roles: ["admin"],
-      submenus: [
-        {
-          key: "Distributor Listing",
-          icon: <PersonIcon sx={{ fontSize: 17.5 }} />,
-          title: "Distributor Listing",
-          path: "/distributor-list",
-        },
-      ],
-    },
-    {
-      key: "StoreManagement",
-      icon: <GrassIcon sx={{ fontSize: 17.5 }} />,
-      title: "Store Management",
-      roles: ["admin"],
-      submenus: [
-        {
-          key: "Store Listing",
-          icon: <Inventory2Icon sx={{ fontSize: 17.5 }} />,
-          title: "Store Listing",
-          path: "/store-list",
-        },
-        {
-          key: "New Store Request",
-          icon: <Inventory2Icon sx={{ fontSize: 17.5 }} />,
-          title: "New Store Request",
-          path: "/newstore-request",
-        },
-      ],
-    },
-    {
-      key: "Sales",
-      icon: <InventoryOutlinedIcon sx={{ fontSize: 17.5 }} />,
-      title: "Sales",
-      roles: ["admin", "distributor"],
       submenus: [
         {
           key: "Purchase Orders",
-          icon: <Inventory2Icon sx={{ fontSize: 17.5 }} />,
+          icon: <LocalOfferOutlinedIcon sx={{ fontSize: 17.5 }} />,
           title: "Purchase Orders",
           path: "/purchase-orders",
+        },
+        {
+          key: "Factory Orders",
+          icon: <StoreOutlinedIcon sx={{ fontSize: 17.5 }} />,
+          title: "Factory Orders",
+          path: "/factory-orders",
         },
       ],
     },
     {
-      key: "FreezerManagement",
-      icon: <InventoryOutlinedIcon sx={{ fontSize: 17.5 }} />,
+      key: "Freezer Management",
+      icon: <KitchenOutlinedIcon sx={{ fontSize: 17.5 }} />,
       title: "Freezer Management",
       roles: ["admin"],
       submenus: [
         {
-          key: "Freezer lists",
-          icon: <Inventory2Icon sx={{ fontSize: 17.5 }} />,
-          title: "Freezer lists",
-          path: "/freezer-list",
+          key: "Cancellations",
+          icon: <DoNotDisturbOutlinedIcon sx={{ fontSize: 17.5 }} />,
+          title: "Cancellations",
+          path: "/cancellation",
         },
+        // {
+        //     key: "Change Requests",
+        //     icon: <PersonIcon sx={{ fontSize: 17.5 }} />,
+        //     title: "Change Requests",
+        //     path: "/change-requests",
+        //   },
+          // {
+          //   key: "New Freezer Request",
+          //   icon: <AddBoxOutlinedIcon sx={{ fontSize: 17.5 }} />,
+          //   title: "New Freezer Request",
+          //   path: "/new-Freezer-request",
+          // },
+      ],
+    },
+    {
+      key: "Freezer Tracking",
+      icon: <LocalShippingOutlinedIcon sx={{ fontSize: 17.5 }} />,
+      title: "Freezer Tracking",
+      roles: ["admin"],
+      submenus: [
+        // {
+        //   key: "Product Movement",
+        //   icon: <FormatListBulletedOutlinedIcon sx={{ fontSize: 17.5 }} />,
+        //   title: "Product Movement",
+        //   path: "/product-movement",
+        // },
+        // {
+        //   key: "Freezer Temperature",
+        //   icon: <AcUnitOutlinedIcon sx={{ fontSize: 17.5 }} />,
+        //   title: "Freezer Temperature",
+        //   path: "/freezer-temperature",
+        // },
+      ],
+    },
+    {
+      key: "Compliance",
+      icon: <InventoryOutlinedIcon sx={{ fontSize: 17.5 }} />,
+      title: "Compliance",
+      roles: ["admin", "distributor"],
+      submenus: [
+        // {
+        //   key: "Purchase Orders",
+        //   icon: <Inventory2Icon sx={{ fontSize: 17.5 }} />,
+        //   title: "Purchase Orders",
+        //   path: "/purchase-orders",
+        // },
+      ],
+    },
+    {
+      key: "Branding Management",
+      icon: <InventoryOutlinedIcon sx={{ fontSize: 17.5 }} />,
+      title: "Branding Management",
+      roles: ["admin"],
+      submenus: [
+        // {
+        //   key: "Freezer lists",
+        //   icon: <Inventory2Icon sx={{ fontSize: 17.5 }} />,
+        //   title: "Freezer lists",
+        //   path: "/freezer-list",
+        // },
       ],
     },
 
     {
-      key: "Task",
+      key: "Stoke Placement",
       icon: <InventoryOutlinedIcon sx={{ fontSize: 17.5 }} />,
-      title: "Tasks",
+      title: "Stoke Placement",
       roles: ["admin"],
       submenus: [
-        {
-          key: "Task lists",
-          icon: <Inventory2Icon sx={{ fontSize: 17.5 }} />,
-          title: "Tasks Lists",
-          path: "/task-list",
-        },
-        {
-          key: "Task creation",
-          icon: <Inventory2Icon sx={{ fontSize: 17.5 }} />,
-          title: "Tasks Creation",
-          path: "/task-creation",
-        },
+        // {
+        //   key: "Task lists",
+        //   icon: <Inventory2Icon sx={{ fontSize: 17.5 }} />,
+        //   title: "Tasks Lists",
+        //   path: "/task-list",
+        // },
+        // {
+        //   key: "Task creation",
+        //   icon: <Inventory2Icon sx={{ fontSize: 17.5 }} />,
+        //   title: "Tasks Creation",
+        //   path: "/task-creation",
+        // },
       ],
     },
     {
-      key: "ProductListing",
+      key: "Incentives & Rewards",
       icon: <InventoryOutlinedIcon sx={{ fontSize: 17.5 }} />,
-      title: "Product Listing",
+      title: "Incentives & Rewards",
       roles: ["admin"],
       submenus: [
-        {
-          key: "Products",
-          icon: <Inventory2Icon sx={{ fontSize: 17.5 }} />,
-          title: "Products",
-          path: "/product-list",
-        },
+        // {
+        //   key: "Products",
+        //   icon: <Inventory2Icon sx={{ fontSize: 17.5 }} />,
+        //   title: "Products",
+        //   path: "/product-list",
+        // },
       ],
     },
   ];
@@ -219,7 +239,7 @@ export const Sidebar = () => {
                 <p
                   className={`flex justify-between items-center px-4 py-2 rounded-md cursor-pointer ${
                     dropdowns[menu.key]
-                      ? "bg-[#e6d9b2] text-[#b5930b]"
+                      ? "bg-[#F3FFF3] text-[#14BA6D]"
                       : "text-[#5A5862] text-[16px]"
                   }`}
                   onClick={() => toggleDropdown(menu.key)}
@@ -240,7 +260,7 @@ export const Sidebar = () => {
                         <p
                           className={`ml-6 px-3 py-2 rounded-md cursor-pointer ${
                             isActive
-                              ? "bg-[#f69c26] text-white"
+                              ? "bg-[#14BA6D] text-white"
                               : "text-gray-600 text-[16px]"
                           }`}
                         >
@@ -259,7 +279,7 @@ export const Sidebar = () => {
   {/* Footer */}
 <div className="absolute bottom-4 left-4 right-4 w-full">
   <div className="p-3 rounded-lg flex items-center justify-between w-full gap-3">
-    <div className="flex gap-2 items-center justify-between bg-[#F7F8F9] w-[80%] rounded-md">
+    <div className="flex gap-2 items-center justify-between bg-[#F3FFF3] w-[80%] rounded-md">
       <div className="flex items-center space-x-3 cursor-pointer">
         <img
           src="https://static.vecteezy.com/system/resources/previews/002/002/403/non_2x/man-with-beard-avatar-character-isolated-icon-free-vector.jpg"
@@ -270,7 +290,7 @@ export const Sidebar = () => {
       </div>
       <ChevronRight className="text-gray-600 cursor-pointer" />
     </div>
-    <div className="flex items-center justify-center bg-[#F7F8F9] w-[20%] h-10 me-8 rounded-md">
+    <div className="flex items-center justify-center bg-[#F3FFF3] w-[20%] h-10 me-8 rounded-md">
       <Settings className="text-gray-600 cursor-pointer" />
     </div>
   </div>

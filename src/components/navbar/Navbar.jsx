@@ -24,7 +24,7 @@ export const Navbar = () => {
   ) {
     heading = "Employee Overview";
   } else if (pathname.startsWith("/purchase-orders")) {
-    heading = "Orders";
+    heading = "Purchase Orders";
   } else if (pathname.startsWith("/store-list")) {
     heading = "Store";
   } else if (pathname.startsWith("/finder-ai")) {
@@ -70,7 +70,7 @@ export const Navbar = () => {
 
   return (
     <div className="w-full fixed h-[70px] border z-40 md:ps-[327px] px-[26px] flex justify-between items-center bg-white">
-      <h2 className="text-[24px] text-[#585858] font-semibold">{heading}</h2>
+      <h2 className="text-[20px] text-[#5A5862] font-semibold ">{heading}</h2>
       <p className="text-[#585858] text-[16px] font-normal">{formattedDate}</p>
     </div>
   );
