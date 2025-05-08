@@ -4,6 +4,7 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import PurchaseOrderList from "../pages/PurchaseOrder/PurchaseOrderList";
 import StoreView from "../pages/PurchaseOrder/StoreView";
 import Cancellation from "../pages/FreezerManagement/Cancellation";
+import CancellationRequest from "../pages/FreezerManagement/CancellationRequest";
 
 
 
@@ -35,6 +36,12 @@ export const router = createBrowserRouter([
                     <Cancellation/>
                  
                 ),
+              },
+              {
+                path: "/cancellation-request",
+                element: (
+                    <CancellationRequest/>
+                 ),
               },
               {
                 path: "/store-view",

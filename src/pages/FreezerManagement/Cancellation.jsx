@@ -7,6 +7,7 @@ import StatusDropdown from "../../components/common/Filter/StatusDropdown";
 import CalendarDropdown from "../../components/common/Filter/CalendarDropdown";
 import ReusableTable from "../../components/common/tables/ReusableTable";
 import { format } from "date-fns";
+import CancellationDetailsModal from "../../components/common/Modal/CancellationDetailsModal";
 
 const dummyData = [
   {
@@ -35,6 +36,7 @@ const dummyData = [
   }))
 ];
 
+
 const getStatusStyles = (status) => {
   switch (status?.toLowerCase()) {
     case "approved":
@@ -55,6 +57,8 @@ const Cancellation = () => {
   const [search, setSearch] = useState("");
   const [isFilterActive, setIsFilterActive] = useState(false);
   const [filters, setFilters] = useState({ status: "All" });
+  const [selectedRequest, setSelectedRequest] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const filtersConfig = [
     {
@@ -118,6 +122,32 @@ const Cancellation = () => {
     console.log("Go to row detail", row);
   };
 
+  const handleViewDetails = (row) => {
+    // Add sample reasons based on status
+    const requestWithReason = {
+      ...row,
+      reason: getReasonByStatus(row.status),
+      rejectionReason: row.status === "Rejected" 
+        ? "This cancellation request has been rejected. The freezer needs to remain operational according to contract terms." 
+        : ""
+    };
+    setSelectedRequest(requestWithReason);
+    setShowModal(true);
+  };
+
+  const getReasonByStatus = (status) => {
+    switch(status?.toLowerCase()) {
+      case "approved":
+        return "Relocating to a smaller location with insufficient space";
+      case "pending":
+        return "Freezer not needed anymore as we're focusing on fresh products only";
+      case "rejected":
+        return "Upgrading to a larger freezer model";
+      default:
+        return "No reason provided";
+    }
+  };
+
   const columns = [
     {
       header: "No",
@@ -162,11 +192,19 @@ const Cancellation = () => {
         }
       },
     {
-      header: "Remark",
-      accessor: "",
-      width: "170px",
-      render: () => (
-        <button className="border px-2 py-1 rounded text-sm hover:bg-gray-100">View Details</button>
+        header: "Remark",
+        accessor: "",
+        width: "170px",
+        render: (_, row) => (
+          <button 
+            className="border px-2 py-1 rounded text-sm hover:bg-gray-100"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleViewDetails(row);
+            }}
+          >
+            View Details
+          </button>
       )
     }
   ];
@@ -186,6 +224,7 @@ const Cancellation = () => {
         isFilterActive={isFilterActive}
         handleFilterToggle={() => setIsFilterActive(!isFilterActive)}
         searchPlaceholder="Search orders"
+        addPath="/cancellation-request"
       />
 
       {isFilterActive && (
@@ -210,6 +249,14 @@ const Cancellation = () => {
           onRowClick={handleRowClick}
           rowAccessor="_id"
         />
+
+        {showModal && selectedRequest && (
+                <CancellationDetailsModal
+                request={selectedRequest}
+                onClose={() => setShowModal(false)}
+                />
+            )}
+
       </div>
     </div>
   );

@@ -150,15 +150,11 @@ const ReusableTable = ({
                       {activeActionRow === rowId && (
                         <div
                           ref={actionMenuRef}
-                          className="fixed z-50 w-40 bg-white rounded-md shadow-lg border border-gray-200"
                           style={{
                             top: `${menuPosition.top}px`,
                             left: `${menuPosition.left}px`,
                           }}
                         >
-                          <div className="px-3 py-2 text-sm text-gray-700">
-                            Reason: {row.rejectionReason || "No reason provided"}
-                          </div>
                         </div>
                       )}
                     </div>
