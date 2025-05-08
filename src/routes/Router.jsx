@@ -3,6 +3,7 @@ import { MainLayout } from "../layouts/MainLayout";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import PurchaseOrderList from "../pages/PurchaseOrder/PurchaseOrderList";
 import StoreView from "../pages/PurchaseOrder/StoreView";
+import Cancellation from "../pages/FreezerManagement/Cancellation";
 
 
 
@@ -24,6 +25,14 @@ export const router = createBrowserRouter([
                 element: (
         
                     <PurchaseOrderList />
+                 
+                ),
+              },
+              {
+                path: "/cancellation",
+                element: (
+        
+                    <Cancellation/>
                  
                 ),
               },
