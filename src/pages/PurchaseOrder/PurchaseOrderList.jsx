@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+
 
 const PurchaseOrderList = () => {
+
+
   return (
-    <div>
+    <div className="p-6 bg-white rounded-lg shadow-sm">
       
     </div>
-  )
-}
+  );
+};
 
-export default PurchaseOrderList
+export default PurchaseOrderList;
