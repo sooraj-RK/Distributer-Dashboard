@@ -8,6 +8,7 @@ import CalendarDropdown from "../../components/common/Filter/CalendarDropdown";
 import ReusableTable from "../../components/common/tables/ReusableTable";
 import { format } from "date-fns";
 import CancellationDetailsModal from "../../components/common/Modal/CancellationDetailsModal";
+import { Padding } from "@mui/icons-material";
 
 const dummyData = [
   {
@@ -152,7 +153,7 @@ const Cancellation = () => {
     {
       header: "No",
       accessor: "",
-      width: "70px",
+      width: "100px",
       render: (_, __, index) => String(index + 1).padStart(2, "0")
     },
     {
@@ -210,7 +211,7 @@ const Cancellation = () => {
   ];
 
   return (
-    <div className="p-6 w-full overflow-x-hidden">
+    <div className="w-full overflow-x-hidden">
       <Header
         title="Freezer Cancellation Requests"
         subtitle=""
@@ -235,7 +236,7 @@ const Cancellation = () => {
             showClear
             onApply={handleApply}
             onClear={handleClear}
-            containerClass="bg-white p-4 rounded shadow"
+            containerClass="bg-white"
           />
         </div>
       )}

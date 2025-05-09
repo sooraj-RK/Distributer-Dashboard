@@ -5,6 +5,7 @@ import PurchaseOrderList from "../pages/PurchaseOrder/PurchaseOrderList";
 import Cancellation from "../pages/FreezerManagement/Cancellation";
 import CancellationRequest from "../pages/FreezerManagement/CancellationRequest";
 import ModifyAndForward from "../pages/PurchaseOrder/ModifyAndForword";
+import StoreView from "../pages/PurchaseOrder/StoreView";
 
 
 
