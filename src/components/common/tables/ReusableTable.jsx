@@ -9,7 +9,7 @@ const ReusableTable = ({
   onSelectAll,
   selectedRows = [],
   onRowSelect,
-  showActions,
+  showActions = false,
   onRowClick,
   rowAccessor = "id",
 }) => {
@@ -18,10 +18,12 @@ const ReusableTable = ({
   const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
   const actionMenuRef = useRef(null);
 
-  // Close the menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (actionMenuRef.current && !actionMenuRef.current.contains(event.target)) {
+      if (
+        actionMenuRef.current &&
+        !actionMenuRef.current.contains(event.target)
+      ) {
         setActiveActionRow(null);
       }
     };
@@ -36,98 +38,99 @@ const ReusableTable = ({
     setActiveActionRow((prev) => (prev === rowId ? null : rowId));
   };
 
-  const renderStatus = (status) => {
-    return (
-      <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs">
-        {status}
-      </span>
-    );
-  };
+  const renderStatus = (status) => (
+    <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs">
+      {status}
+    </span>
+  );
 
-  const renderViewDetailsButton = (row) => {
-    return (
-      <button 
-        className="px-3 py-1 border border-gray-300 rounded-md text-sm text-gray-700 hover:bg-gray-50 transition"
-        onClick={(e) => {
-          e.stopPropagation();
-          onRowClick?.(row);
-        }}
-      >
-        View Details
-      </button>
-    );
-  };
+  const renderViewDetailsButton = (row) => (
+    <button
+      className="px-3 py-1 border border-gray-300 rounded-md text-sm text-gray-700 hover:bg-gray-50 transition"
+      onClick={(e) => {
+        e.stopPropagation();
+        onRowClick?.(row);
+      }}
+    >
+      View Details
+    </button>
+  );
 
   return (
-    <div className="w-full overflow-x-auto">
-      <table className="table-auto min-w-max border-collapse text-left">
-        <thead>
-          <tr className="border-y bg-gray-50 text-gray-500 text-sm font-inter">
-            {onSelectAll && (
-              <th className="pl-4">
-                <input
-                  type="checkbox"
-                  checked={selectAll}
-                  onChange={onSelectAll}
-                  style={checkboxStyle}
-                />
-              </th>
-            )}
-
-            {columns.map((col, idx) => (
-              <th
-                key={idx}
-                className="p-2 font-normal relative whitespace-nowrap"
-                style={{ width: col.width || "150px" }}
-              >
-                <div className="flex items-center gap-1">
-                  {col.header}
-                  <SouthOutlined fontSize="small" className="text-gray-400 p-[3px]" />
-                </div>
-              </th>
-            ))}
-
-            {showActions && <th className="px-2 py-3" />}
-          </tr>
-        </thead>
-
-        <tbody>
-          {data.map((row, rowIndex) => {
-            const rowId = row[rowAccessor] ?? rowIndex;
-            const isRejected = row.status === "Rejected";
-            
-            return (
-              <tr
-                key={rowId}
-                className={`border-b hover:bg-gray-100 transition font-inter ${
-                  selectedRows.includes(rowId) ? "bg-gray-50" : ""
-                } ${onRowClick ? "cursor-pointer" : ""}`}
-                onClick={(e) => {
-                  if (
-                    onRowClick &&
-                    e.target.type !== "checkbox" &&
-                    !e.target.closest(".action-menu-container") &&
-                    !e.target.closest("button")
-                  ) {
-                    onRowClick(row);
-                  }
-                }}
-              >
-                {onRowSelect && (
-                  <td className="pl-4">
-                    <input
-                      type="checkbox"
-                      checked={selectedRows.includes(rowId)}
-                      onChange={() => onRowSelect(rowId)}
-                      onClick={(e) => e.stopPropagation()}
-                      style={checkboxStyle}
+    <div className="w-full overflow-x-auto rounded-xl border border-gray-200">
+      <div className="rounded-xl">
+        <table className="table-auto w-max lg:min-w-full border-collapse text-left">
+          <thead>
+            <tr className="border-b bg-gray-50 text-gray-500 text-sm font-inter">
+              {onSelectAll && (
+                <th className="pl-4">
+                  <input
+                    type="checkbox"
+                    checked={selectAll}
+                    onChange={onSelectAll}
+                    style={checkboxStyle}
+                  />
+                </th>
+              )}
+              {columns.map((col, idx) => (
+                <th
+                  key={idx}
+                  className={`px-2 py-2 font-normal relative whitespace-nowrap ${
+                    col.maxWidth ? `max-w-[${col.maxWidth}]` : ""
+                  }`}
+                >
+                  <div className="flex items-center gap-1">
+                    {col.header}
+                    <SouthOutlined
+                      fontSize="small"
+                      className="text-gray-400 p-[3px]"
                     />
-                  </td>
-                )}
+                  </div>
+                </th>
+              ))}
+              {showActions && <th className="px-2 py-2" />}
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((row, rowIndex) => {
+              const rowId = row[rowAccessor] ?? rowIndex;
+              const isRejected = row.status === "Rejected";
 
-                {columns.map((col, idx) => (
-                  <td key={idx} className="px-2 py-3" style={{ width: col.width }}>
-                    <div className={`whitespace-normal break-words ${col.bold ? "font-bold" : ""}`}>
+              return (
+                <tr
+                  key={rowId}
+                  className={`border-b border-gray-200 hover:bg-gray-100 transition font-inter ${
+                    selectedRows.includes(rowId) ? "bg-gray-50" : ""
+                  } ${onRowClick ? "cursor-pointer" : ""}`}
+                  onClick={(e) => {
+                    if (
+                      onRowClick &&
+                      e.target.type !== "checkbox" &&
+                      !e.target.closest(".action-menu-container") &&
+                      !e.target.closest("button")
+                    ) {
+                      onRowClick(row);
+                    }
+                  }}
+                >
+                  {onRowSelect && (
+                    <td className="pl-4">
+                      <input
+                        type="checkbox"
+                        checked={selectedRows.includes(rowId)}
+                        onChange={() => onRowSelect(rowId)}
+                        onClick={(e) => e.stopPropagation()}
+                        style={checkboxStyle}
+                      />
+                    </td>
+                  )}
+                  {columns.map((col, idx) => (
+                    <td
+                      key={idx}
+                      className={`px-2 py-2 whitespace-normal break-words ${
+                        col.bold ? "font-bold" : ""
+                      } ${col.maxWidth ? `max-w-[${col.maxWidth}]` : ""}`}
+                    >
                       {col.render
                         ? col.render(row[col.accessor], row, rowIndex)
                         : col.accessor === "status"
@@ -135,6 +138,7 @@ const ReusableTable = ({
                         : col.accessor === "remark"
                         ? renderViewDetailsButton(row)
                         : row[col.accessor]}
+
                     </div>
                   </td>
                 ))}
@@ -165,6 +169,7 @@ const ReusableTable = ({
           })}
         </tbody>
       </table>
+
     </div>
   );
 };
