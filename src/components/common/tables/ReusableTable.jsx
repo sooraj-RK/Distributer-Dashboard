@@ -57,7 +57,7 @@ const ReusableTable = ({
   );
 
   return (
-    <div className="w-full overflow-x-auto rounded-xl border border-gray-200">
+    <div className="w-full overflow-x-auto rounded-[7px] border border-gray-200">
       <div className="rounded-xl">
         <table className="table-auto w-max lg:min-w-full border-collapse text-left">
           <thead>
@@ -138,8 +138,6 @@ const ReusableTable = ({
                         : col.accessor === "remark"
                         ? renderViewDetailsButton(row)
                         : row[col.accessor]}
-
-                    </div>
                   </td>
                 ))}
 
@@ -169,7 +167,7 @@ const ReusableTable = ({
           })}
         </tbody>
       </table>
-
+      </div>
     </div>
   );
 };
