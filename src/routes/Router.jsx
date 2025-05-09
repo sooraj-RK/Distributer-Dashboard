@@ -4,6 +4,7 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import PurchaseOrderList from "../pages/PurchaseOrder/PurchaseOrderList";
 import StoreView from "../pages/PurchaseOrder/StoreView";
 import Cancellation from "../pages/FreezerManagement/Cancellation";
+import FactoryOrders from "../pages/FactoryOrder/FactoryOrderList";
 
 
 
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
                 path: "/store-view",
                 element: <StoreView/>,
               },
+              {
+                path: "/factory-orders",
+                element: <FactoryOrders/>,
+              }
         ]
     }
 ])

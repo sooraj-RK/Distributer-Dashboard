@@ -1,7 +1,7 @@
-// src/pages/StoreView.jsx
 import React, { useState, useMemo } from 'react';
 import { PrinterIcon } from 'lucide-react'; // or replace with your icon
 import PriceTable from '../../components/common/tables/PriceTable';
+import { useLocation } from 'react-router-dom';
 
 const initialOrders = [
     {
@@ -37,6 +37,7 @@ const initialOrders = [
 
 export default function StoreView() {
     const [orders, setOrders] = useState(initialOrders);
+    const location = useLocation();
 
     const handleUnitsChange = (orderNo, itemId, newUnits) => {
         setOrders(prev =>
