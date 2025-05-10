@@ -3,9 +3,11 @@ import { MainLayout } from "../layouts/MainLayout";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import PurchaseOrderList from "../pages/PurchaseOrder/PurchaseOrderList";
 import Cancellation from "../pages/FreezerManagement/Cancellation";
+import FactoryOrders from "../pages/FactoryOrder/FactoryOrderList";
 import CancellationRequest from "../pages/FreezerManagement/CancellationRequest";
 import ModifyAndForward from "../pages/PurchaseOrder/ModifyAndForword";
-import StoreView from "../pages/PurchaseOrder/StoreView";
+
+
 
 
 
@@ -54,6 +56,10 @@ export const router = createBrowserRouter([
                 element: <ModifyAndForward/>,
 
               },
+              {
+                path: "/factory-orders",
+                element: <FactoryOrders/>,
+              }
         ]
     }
 ])
