@@ -155,15 +155,16 @@ const ChangeRequest = () => {
   ];
 
   return (
-    <div className="p-4 w-full overflow-x-auto">
+    <div className="p-1 w-full overflow-x-auto">
       <Header
-        title="Freezer Cancellation Requests"
+        title="Freezer Change Requests"
         searchValue={search}
         onSearchChange={e => setSearch(e.target.value)}
         showAdd
         addButtonText="New Request"
         addIcon={PlusIcon}
         showExports
+        addPath="/change-requests/new-request"
         isFilterActive={isFilterActive}
         handleFilterToggle={() => setIsFilterActive(!isFilterActive)}
         searchPlaceholder="Search orders"
