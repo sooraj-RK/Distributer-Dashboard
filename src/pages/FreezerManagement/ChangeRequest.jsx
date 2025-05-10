@@ -13,7 +13,7 @@ const dummyData = [
     _id: "1",
     requestId: "CR001",
     store: "City Mart Downtown",
-    freezerId: "F2100",
+    freezerId: "FZ100",
     date: "2025-04-28 12:44 PM",
     status: "Approved"
   },
@@ -21,17 +21,18 @@ const dummyData = [
     _id: "2",
     requestId: "CR002",
     store: "Grocery Express",
-    freezerId: "F2221",
+    freezerId: "FZ221",
     date: "2025-04-28 12:44 PM",
     status: "Approved"
   },
+  
   ...Array(12).fill(null).map((_, i) => ({
     _id: `${i + 3}`,
     requestId: "Regular text column",
     store: "Regular text column",
     freezerId: "Regular text column",
     date: "Bold text column",
-    status: ["Pending", "Rejected", "Forwarded"][i % 3]
+    status: ["Approved", "Pending", "Rejected", "Forwarded"][i % 4]
   }))
 ];
 
@@ -50,7 +51,7 @@ const getStatusStyles = (status) => {
   }
 };
 
-const Cancellation = () => {
+const ChangeRequest = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [isFilterActive, setIsFilterActive] = useState(false);
@@ -69,53 +70,45 @@ const Cancellation = () => {
     },
     {
       key: "dateRange",
-      value: filters.dateRange,
       component: CalendarDropdown,
-      valueFormatter: (value) => {
-        if (!Array.isArray(value)) return 'Select date range';
-        return `${format(value[0], 'd MMM yyyy')} - ${format(value[1], 'd MMM yyyy')}`;
+      value: filters.dateRange,
+      valueFormatter: (val) => {
+        if (!Array.isArray(val)) return "Select date range";
+        return `${format(val[0], "d MMM yyyy")} - ${format(val[1], "d MMM yyyy")}`;
       },
       showLabel: false
     }
   ];
 
-  const handleApply = (appliedFilters) => {
-    setFilters(appliedFilters);
+  const handleApply = (applied) => {
+    setFilters(applied);
     setIsFilterActive(
-      Object.values(appliedFilters).some(val => 
-        Array.isArray(val) 
-          ? val.length > 0 
-          : val !== "All" && val !== undefined
+      Object.values(applied).some(v =>
+        Array.isArray(v) ? v.length > 0 : v !== "All" && v !== undefined
       )
     );
   };
 
   const handleClear = () => {
-    setFilters({ 
-      status: "All",
-      dateRange: [new Date(), new Date()]
-    });
+    setFilters({ status: "All", dateRange: [new Date(), new Date()] });
     setIsFilterActive(false);
   };
 
-  const filteredData = dummyData.filter((item) => {
-    const statusMatch = filters.status === "All" || item.status === filters.status;
-    const searchMatch = item.requestId?.toLowerCase().includes(search.toLowerCase());
-    // Date range filtering
-    let dateMatch = true;
+  const filteredData = dummyData.filter(item => {
+    const statusOk = filters.status === "All" || item.status === filters.status;
+    const searchOk = item.requestId.toLowerCase().includes(search.toLowerCase());
+    let dateOk = true;
     if (Array.isArray(filters.dateRange) && filters.dateRange.length === 2) {
-      const [startDate, endDate] = filters.dateRange;
-      const itemDate = new Date(item.date);
-      dateMatch = itemDate >= startDate && itemDate <= endDate;
+      const [start, end] = filters.dateRange;
+      const d = new Date(item.date);
+      dateOk = d >= start && d <= end;
     }
-    
-    return statusMatch && searchMatch && dateMatch;
+    return statusOk && searchOk && dateOk;
   });
 
-  
-
-  const handleRowClick = (row) => {
-    console.log("Go to row detail", row);
+  const handleRowClick = row => {
+    console.log("Go to detail:", row);
+    // navigate(`/change-request/${row._id}`);
   };
 
   const columns = [
@@ -123,66 +116,54 @@ const Cancellation = () => {
       header: "No",
       accessor: "",
       width: "70px",
-      render: (_, __, index) => String(index + 1).padStart(2, "0")
+      render: (_, __, idx) => String(idx + 1).padStart(2, "0")
     },
-    {
-      header: "Request ID",
-      accessor: "requestId",
-      width: "150px"
-    },
-    {
-      header: "Store",
-      accessor: "store",
-      width: "180px"
-    },
-    {
-      header: "Freezer ID",
-      accessor: "freezerId",
-      width: "150px"
-    },
+    { header: "Request ID", accessor: "requestId", width: "150px" },
+    { header: "Store", accessor: "store", width: "180px" },
+    { header: "Freezer ID", accessor: "freezerId", width: "150px" },
     {
       header: "Date Requested",
       accessor: "date",
       width: "200px",
-      render: (val) => <span>{val}</span>
+      render: val => <span>{val}</span>
     },
     {
-        header: "Status",
-        accessor: "status",
-        render: (val) => {
-          const { dot, bg, text } = getStatusStyles(val);
-          return (
-            <div className="flex justify-center">
-              <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium ${bg} ${text}`}>
-                <span className={`w-2 h-2 rounded-full ${dot}`}></span>
-                {val}
-              </span>
-            </div>
-          );
-        }
-      },
+      header: "Status",
+      accessor: "status",
+      render: val => {
+        const { dot, bg, text } = getStatusStyles(val);
+        return (
+          <div className="flex justify-center">
+            <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium ${bg} ${text}`}>
+              <span className={`w-2 h-2 rounded-full ${dot}`}></span>
+              {val}
+            </span>
+          </div>
+        );
+      }
+    },
     {
       header: "Remark",
       accessor: "",
       width: "170px",
       render: () => (
-        <button className="border px-2 py-1 rounded text-sm hover:bg-gray-100">View Details</button>
+        <button className="border px-2 py-1 rounded text-sm hover:bg-gray-100">
+          View Details
+        </button>
       )
     }
   ];
 
   return (
-    <div className="p-1 w-full overflow-x-hidden">
+    <div className="p-4 w-full overflow-x-auto">
       <Header
         title="Freezer Cancellation Requests"
-        subtitle=""
         searchValue={search}
-        onSearchChange={(e) => setSearch(e.target.value)}
-        showAdd={true}
+        onSearchChange={e => setSearch(e.target.value)}
+        showAdd
         addButtonText="New Request"
         addIcon={PlusIcon}
-        showExports={true}
-        onDelete={(rows) => console.log("Delete rows:", rows)}
+        showExports
         isFilterActive={isFilterActive}
         handleFilterToggle={() => setIsFilterActive(!isFilterActive)}
         searchPlaceholder="Search orders"
@@ -205,8 +186,6 @@ const Cancellation = () => {
         <ReusableTable
           columns={columns}
           data={filteredData}
-          isFilterActive={isFilterActive}
-          showActions={true}
           onRowClick={handleRowClick}
           rowAccessor="_id"
         />
@@ -215,4 +194,4 @@ const Cancellation = () => {
   );
 };
 
-export default Cancellation;
+export default ChangeRequest;

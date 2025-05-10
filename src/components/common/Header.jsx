@@ -79,8 +79,8 @@ const Header = ({
     <div className="p-4 md:pl-[19px] flex flex-col md:flex-row gap-4 md:gap-0 justify-between items-start md:items-center mb-4">
       <div className="w-full md:w-auto">
         {showTitle && (
-          <div className="flex flex-col md:flex-row md:items-center gap-2">
-            <h2 className="text-lg md:text-xl font-medium leading-[28px] font-inter">
+         <div className="flex flex-col md:flex-row md:items-center gap-2">
+     <h2 className="text-lg md:text-xl font-medium leading-[28px] font-inter whitespace-nowrap">
               {title}
             </h2>
             {showBrandName && (

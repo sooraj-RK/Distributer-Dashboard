@@ -4,6 +4,7 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import PurchaseOrderList from "../pages/PurchaseOrder/PurchaseOrderList";
 import Cancellation from "../pages/FreezerManagement/Cancellation";
 import ModifyAndForward from "../pages/PurchaseOrder/ModifyAndForword";
+import ChangeRequest from "../pages/FreezerManagement/ChangeRequest";
 
 
 
@@ -36,6 +37,16 @@ export const router = createBrowserRouter([
                  
                 ),
               },
+                {
+                  path:"/change-requests",
+                  element: (
+        
+                    <ChangeRequest/>
+                 
+                ),
+              },
+
+           
               {
                 path: "/modify-forward",
                 element: <ModifyAndForward/>,
