@@ -76,7 +76,7 @@ export default function StoreView({ order, onUnitsChange }) {
   }
 
   return (
-    <div className="bg-white border-2 border-gray-200 rounded ">
+    <div className="bg-white border-2 border-gray-200 rounded mb-3">
       <div
         className="relative px-4 pt-2 pb-1 before:content-[''] before:absolute before:bottom-0 before:left-4 before:right-4 before:border-b before:border-gray-200"
       >

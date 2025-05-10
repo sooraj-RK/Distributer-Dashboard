@@ -101,12 +101,12 @@ export const Sidebar = () => {
           title: "Cancellations",
           path: "/cancellation",
         },
-        // {
-        //     key: "Change Requests",
-        //     icon: <PersonIcon sx={{ fontSize: 17.5 }} />,
-        //     title: "Change Requests",
-        //     path: "/change-requests",
-        //   },
+        {
+            key: "Change Requests",
+            icon: <PersonIcon sx={{ fontSize: 17.5 }} />,
+            title: "Change Requests",
+            path: "/change-requests",
+          },
           // {
           //   key: "New Freezer Request",
           //   icon: <AddBoxOutlinedIcon sx={{ fontSize: 17.5 }} />,

@@ -6,8 +6,7 @@ import Cancellation from "../pages/FreezerManagement/Cancellation";
 import FactoryOrders from "../pages/FactoryOrder/FactoryOrderList";
 import CancellationRequest from "../pages/FreezerManagement/CancellationRequest";
 import ModifyAndForward from "../pages/PurchaseOrder/ModifyAndForword";
-
-
+import ChangeRequest from "../pages/FreezerManagement/ChangeRequest";
 
 
 
@@ -41,17 +40,17 @@ export const router = createBrowserRouter([
                  
                 ),
               },
-              {
-
-                path: "/cancellation-request",
-                element: (
-                    <CancellationRequest/>
-                 ),
+                {
+                  path:"/change-requests",
+                  element: (
+        
+                    <ChangeRequest/>
+                 
+                ),
               },
-              {
-                path: "/store-view",
-                element: <StoreView/>,
 
+           
+              {
                 path: "/modify-forward",
                 element: <ModifyAndForward/>,
 
