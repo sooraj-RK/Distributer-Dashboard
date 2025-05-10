@@ -10,7 +10,7 @@ const ReusableTable = ({
   onSelectAll,
   selectedRows = [],
   onRowSelect,
-  showActions,
+  showActions = false,
   onRowClick,
   rowAccessor = "id",
 }) => {
@@ -21,10 +21,12 @@ const ReusableTable = ({
   const [selectedRejectedOrder, setSelectedRejectedOrder] = useState(null);
   const actionMenuRef = useRef(null);
 
-  // Close the menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (actionMenuRef.current && !actionMenuRef.current.contains(event.target)) {
+      if (
+        actionMenuRef.current &&
+        !actionMenuRef.current.contains(event.target)
+      ) {
         setActiveActionRow(null);
       }
     };
@@ -40,6 +42,7 @@ const ReusableTable = ({
     setMenuPosition({ top: e.clientY, left: e.clientX - 160 });
     setActiveActionRow((prev) => (prev === rowId ? null : rowId));
   };
+
 
   const handleSelectAll = (e) => {
     if (onSelectAll) {
@@ -63,31 +66,33 @@ const ReusableTable = ({
     );
   };
 
-  const renderViewDetailsButton = (row) => {
-    return (
-      <button 
-        className="px-3 py-1 border border-gray-300 rounded-md text-sm text-gray-700 hover:bg-gray-50 transition"
-        onClick={(e) => {
-          e.stopPropagation();
-          onRowClick?.(row);
-        }}
-      >
-        View Details
-      </button>
-    );
-  };
+
+  const renderViewDetailsButton = (row) => (
+    <button
+      className="px-3 py-1 border border-gray-300 rounded-md text-sm text-gray-700 hover:bg-gray-50 transition"
+      onClick={(e) => {
+        e.stopPropagation();
+        onRowClick?.(row);
+      }}
+    >
+      View Details
+    </button>
+  );
 
   return (
+
     <>
       <div className="w-full overflow-x-auto">
         <table className="table-auto min-w-max border-collapse text-left">
           <thead>
             <tr className="border-y bg-gray-50 text-gray-500 text-sm font-inter">
+
               {onSelectAll && (
                 <th className="pl-4">
                   <input
                     type="checkbox"
                     checked={selectAll}
+
                     onChange={handleSelectAll}
                     onClick={(e) => e.stopPropagation()}
                     style={checkboxStyle}
@@ -113,15 +118,18 @@ const ReusableTable = ({
             </tr>
           </thead>
 
+
           <tbody>
             {data.map((row, rowIndex) => {
               const rowId = row[rowAccessor] ?? rowIndex;
               const isRejected = row.status === "Rejected";
+
               
               return (
                 <tr
                   key={rowId}
                   className={`border-b hover:bg-gray-100 transition font-inter ${
+
                     selectedRows.includes(rowId) ? "bg-gray-50" : ""
                   } ${onRowClick ? "cursor-pointer" : ""}`}
                   onClick={(e) => {
@@ -140,6 +148,7 @@ const ReusableTable = ({
                       <input
                         type="checkbox"
                         checked={selectedRows.includes(rowId)}
+
                         onChange={(e) => {
                           e.stopPropagation();
                           handleRowSelect(rowId, e);
@@ -203,6 +212,7 @@ const ReusableTable = ({
         />
       )}
     </>
+
   );
 };
 

@@ -54,6 +54,8 @@ const Header = ({
   showExports = false,
   showAdd = true,
   showModify= false,
+  disableModify,
+  onModifyClick,
   showTitle = true,
   showBrandName = false,
   showSearch = true,
@@ -122,7 +124,7 @@ const Header = ({
             <button
               className={`px-3 py-2 border rounded-lg flex items-center gap-2 text-sm ${
                 isExportActive
-                  ? "bg-blue-600 text-white"
+                  ? "bg-blue-500 text-white"
                   : "text-gray-700 border-gray-300 hover:bg-gray-100"
               }`}
               onClick={() => toPDF(true)}
@@ -131,6 +133,20 @@ const Header = ({
               <span className="hidden md:inline">Exports</span>
             </button>
           )}
+
+             {/* Modify & Forward button */}
+             {showModify &&(
+            <button
+            onClick={onModifyClick}
+          disabled={disableModify}
+
+            className="px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md text-sm font-medium flex items-center gap-2"
+          >
+            <span className="hidden md:inline">Modify & Forward</span>
+          </button>
+          )}
+
+          
 
           {showExport && (
             <button
@@ -141,16 +157,6 @@ const Header = ({
               <span className="hidden md:inline">Export</span>
             </button>
           )}
-
-          {/* Modify & Forward button */}
-          {showModify &&(
-            <button
-            className="px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md text-sm font-medium flex items-center gap-2"
-          >
-            <span className="hidden md:inline">Modify & Forward</span>
-          </button>
-          )}
-
           {showAdd && (
             <button
               className="px-3 py-2 bg-green-600 text-white rounded-lg flex items-center gap-2 text-sm"
@@ -160,6 +166,8 @@ const Header = ({
               <span className="hidden md:inline">{addButtonText}</span>
             </button>
           )}
+
+       
         </div>
       </div>
     </div>

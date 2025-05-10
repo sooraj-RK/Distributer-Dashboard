@@ -101,18 +101,18 @@ export const Sidebar = () => {
           title: "Cancellations",
           path: "/cancellation",
         },
-        {
-            key: "Change Requests",
-            icon: <PersonIcon sx={{ fontSize: 17.5 }} />,
-            title: "Change Requests",
-            path: "/change-requests",
-          },
-          {
-            key: "New Freezer Request",
-            icon: <AddBoxOutlinedIcon sx={{ fontSize: 17.5 }} />,
-            title: "New Freezer Request",
-            path: "/new-Freezer-request",
-          },
+        // {
+        //     key: "Change Requests",
+        //     icon: <PersonIcon sx={{ fontSize: 17.5 }} />,
+        //     title: "Change Requests",
+        //     path: "/change-requests",
+        //   },
+          // {
+          //   key: "New Freezer Request",
+          //   icon: <AddBoxOutlinedIcon sx={{ fontSize: 17.5 }} />,
+          //   title: "New Freezer Request",
+          //   path: "/new-Freezer-request",
+          // },
       ],
     },
     {
@@ -121,18 +121,18 @@ export const Sidebar = () => {
       title: "Freezer Tracking",
       roles: ["admin"],
       submenus: [
-        {
-          key: "Product Movement",
-          icon: <FormatListBulletedOutlinedIcon sx={{ fontSize: 17.5 }} />,
-          title: "Product Movement",
-          path: "/product-movement",
-        },
-        {
-          key: "Freezer Temperature",
-          icon: <AcUnitOutlinedIcon sx={{ fontSize: 17.5 }} />,
-          title: "Freezer Temperature",
-          path: "/freezer-temperature",
-        },
+        // {
+        //   key: "Product Movement",
+        //   icon: <FormatListBulletedOutlinedIcon sx={{ fontSize: 17.5 }} />,
+        //   title: "Product Movement",
+        //   path: "/product-movement",
+        // },
+        // {
+        //   key: "Freezer Temperature",
+        //   icon: <AcUnitOutlinedIcon sx={{ fontSize: 17.5 }} />,
+        //   title: "Freezer Temperature",
+        //   path: "/freezer-temperature",
+        // },
       ],
     },
     {
