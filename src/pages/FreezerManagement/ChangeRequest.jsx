@@ -7,35 +7,47 @@ import StatusDropdown from "../../components/common/Filter/StatusDropdown";
 import CalendarDropdown from "../../components/common/Filter/CalendarDropdown";
 import ReusableTable from "../../components/common/tables/ReusableTable";
 import { format } from "date-fns";
+import ChangeRequestModal from "../../components/common/Modal/ChangeRequestModal";
 
 const dummyData = [
-  {
-    _id: "1",
-    requestId: "CR001",
-    store: "City Mart Downtown",
-    freezerId: "FZ100",
-    date: "2025-04-28 12:44 PM",
-    status: "Approved"
-  },
-  {
-    _id: "2",
-    requestId: "CR002",
-    store: "Grocery Express",
-    freezerId: "FZ221",
-    date: "2025-04-28 12:44 PM",
-    status: "Approved"
-  },
+    {
+      _id: "1",
+      requestId: "CR001",
+      store: "City Mart Downtown",
+      freezerId: "FZ100",
+      date: "2025-04-28 12:44 PM",
+      status: "Approved",
+      changeReason: "Seasonal stock adjustment",
+      // no rejectionReason because it's approved
+    },
+    {
+      _id: "2",
+      requestId: "CR002",
+      store: "Grocery Express",
+      freezerId: "FZ221",
+      date: "2025-04-28 12:44 PM",
+      status: "Approved",
+      changeReason: "Switching to larger capacity",
+    },
+    // now generate the rest, injecting a rejectionReason when status is Rejected
+    ...Array(12).fill(null).map((_, i) => {
+      const status = ["Approved", "Pending", "Rejected"][i % 3];
+      return {
+        _id: `${i + 3}`,
+        requestId: `CR00${i + 3}`,
+        store: "Regular text column",
+        freezerId: "Regular text column",
+        date: "2025-04-28 12:44 PM",
+        status,
+        changeReason: "Regular change request",
+        // only give a rejectionReason for the rejected ones
+        ...(status === "Rejected" && {
+          rejectionReason: "Insufficient justification",
+        }),
+      };
+    })
+  ];
   
-  ...Array(12).fill(null).map((_, i) => ({
-    _id: `${i + 3}`,
-    requestId: "Regular text column",
-    store: "Regular text column",
-    freezerId: "Regular text column",
-    date: "Bold text column",
-    status: ["Approved", "Pending", "Rejected", "Forwarded"][i % 4]
-  }))
-];
-
 const getStatusStyles = (status) => {
   switch (status?.toLowerCase()) {
     case "approved":
@@ -57,6 +69,10 @@ const ChangeRequest = () => {
   const [isFilterActive, setIsFilterActive] = useState(false);
   const [filters, setFilters] = useState({ status: "All" });
 
+  const [selected, setSelected] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  
+  
   const filtersConfig = [
     {
       key: "status",
@@ -65,7 +81,7 @@ const ChangeRequest = () => {
       component: StatusDropdown,
       valueFormatter: (val) => val,
       dropdownProps: {
-        options: ["All", "Approved", "Pending", "Rejected", "Forwarded"]
+        options: ["All", "Approved", "Pending", "Rejected"]
       }
     },
     {
@@ -143,15 +159,21 @@ const ChangeRequest = () => {
       }
     },
     {
-      header: "Remark",
-      accessor: "",
-      width: "170px",
-      render: () => (
-        <button className="border px-2 py-1 rounded text-sm hover:bg-gray-100">
-          View Details
-        </button>
-      )
-    }
+        header: "Remark",
+        accessor: "",
+        width: "170px",
+        render: (_value, row) => (
+          <button
+            className="border px-2 py-1 rounded text-sm hover:bg-gray-100"
+            onClick={() => {
+              setSelected(row);
+              setShowModal(true);
+            }}
+          >
+            View Details
+          </button>
+        )
+      }
   ];
 
   return (
@@ -189,8 +211,26 @@ const ChangeRequest = () => {
           data={filteredData}
           onRowClick={handleRowClick}
           rowAccessor="_id"
+          showActions   
         />
       </div>
+
+      <ChangeRequestModal
+  isOpen={showModal}
+  onClose={() => setShowModal(false)}
+  data={{
+    requestId: selected?.requestId,
+    store: selected?.store,
+    freezerId: selected?.freezerId,
+    date: selected?.date,
+    currentCapacity: selected?.currentCapacity || "—",
+    requestedCapacity: selected?.requestedCapacity || "—",
+    changeReason: selected?.changeReason || "—",
+    rejectionReason: selected?.rejectionReason,
+  }}
+  status={selected?.status}
+/>
+
     </div>
   );
 };
