@@ -7,6 +7,7 @@ import FactoryOrders from "../pages/FactoryOrder/FactoryOrderList";
 import CancellationRequest from "../pages/FreezerManagement/CancellationRequest";
 import ModifyAndForward from "../pages/PurchaseOrder/ModifyAndForword";
 import ChangeRequest from "../pages/FreezerManagement/ChangeRequest";
+import NewRequest from "../pages/FreezerManagement/NewRequest";
 
 
 
@@ -46,6 +47,14 @@ export const router = createBrowserRouter([
         
                     <ChangeRequest/>
                  
+                ),
+              },
+
+              {
+                path:"/change-requests/new-request",
+                element: (
+                  <NewRequest/>
+
                 ),
               },
 
