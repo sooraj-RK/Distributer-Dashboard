@@ -57,7 +57,7 @@ const ReusableTable = ({
   );
 
   return (
-    <div className="w-full overflow-x-auto rounded-xl border border-gray-200">
+    <div className="w-full overflow-x-auto rounded-[7px] border border-gray-200">
       <div className="rounded-xl">
         <table className="table-auto w-max lg:min-w-full border-collapse text-left">
           <thead>
@@ -138,38 +138,35 @@ const ReusableTable = ({
                         : col.accessor === "remark"
                         ? renderViewDetailsButton(row)
                         : row[col.accessor]}
-                    </td>
-                  ))}
-                  {showActions && isRejected && (
-                    <td className="px-2 py-2 text-right relative">
-                      <div className="action-menu-container inline-block">
-                        <HelpOutlineIcon
-                          fontSize="small"
-                          className="cursor-pointer text-red-500 hover:text-red-700"
-                          onClick={(e) => handleActionClick(rowId, e)}
-                        />
-                        {activeActionRow === rowId && (
-                          <div
-                            ref={actionMenuRef}
-                            className="fixed z-50 w-40 bg-white rounded-md shadow-lg border border-gray-200"
-                            style={{
-                              top: `${menuPosition.top}px`,
-                              left: `${menuPosition.left}px`,
-                            }}
-                          >
-                            <div className="px-3 py-2 text-sm text-gray-700">
-                              Reason: {row.rejectionReason || "No reason provided"}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </td>
-                  )}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                  </td>
+                ))}
+
+                {showActions && isRejected && (
+                  <td className="px-2 py-3 text-right relative">
+                    <div className="action-menu-container inline-block">
+                      <HelpOutlineIcon
+                        fontSize="small"
+                        className="cursor-pointer text-red-500 hover:text-red-700"
+                        onClick={(e) => handleActionClick(rowId, e)}
+                      />
+                      {activeActionRow === rowId && (
+                        <div
+                          ref={actionMenuRef}
+                          style={{
+                            top: `${menuPosition.top}px`,
+                            left: `${menuPosition.left}px`,
+                          }}
+                        >
+                        </div>
+                      )}
+                    </div>
+                  </td>
+                )}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
       </div>
     </div>
   );
